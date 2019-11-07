@@ -17,11 +17,15 @@ public class SpawnObjects : MonoBehaviour
     public TMP_Text XValue;
     public TMP_Text YValue;
     public TMP_Text ZValue;
+    public TMP_Text SpacingValue;
+    public TMP_Text GravityValue;
     public TMP_Text Spawned;
 
     private Slider sliderX;
     private Slider sliderY;
     private Slider sliderZ;
+    private Slider sliderGravity;
+    private Slider sliderSpacing;
 
     private List<GameObject> created = new List<GameObject>();
 
@@ -29,12 +33,23 @@ public class SpawnObjects : MonoBehaviour
     {
         sliderX = GameObject.Find("SliderX").GetComponent<Slider>();
         sliderX.value = XCount;
+        UpdateX(XCount);
 
         sliderY = GameObject.Find("SliderY").GetComponent<Slider>();
         sliderY.value = YCount;
+        UpdateY(YCount);
 
         sliderZ = GameObject.Find("SliderZ").GetComponent<Slider>();
         sliderZ.value = ZCount;
+        UpdateZ(ZCount);
+
+        sliderSpacing = GameObject.Find("SliderSpacing").GetComponent<Slider>();
+        sliderSpacing.value = Spacing;
+        UpdateSpacing(Spacing);
+
+        sliderGravity = GameObject.Find("SliderGravity").GetComponent<Slider>();
+        sliderGravity.value = Physics.gravity.y;
+        UpdateGravity(Physics.gravity.y);
 
         Spawn();
     }
@@ -79,12 +94,12 @@ public class SpawnObjects : MonoBehaviour
             }
         }
 
-        if(count < created.Count)
+        if (count < created.Count)
         {
-          for (int i = count; i < created.Count; i++)
-          {
-              created[i].SetActive(false);
-          }
+            for (int i = count; i < created.Count; i++)
+            {
+                created[i].SetActive(false);
+            }
         }
 
         Spawned.text = (count--).ToString();
@@ -108,5 +123,16 @@ public class SpawnObjects : MonoBehaviour
         ZValue.text = ZCount.ToString();
     }
 
+    public void UpdateSpacing(float value)
+    {
+        Spacing = value;
+        SpacingValue.text = Spacing.ToString();
+    }
+
+    public void UpdateGravity(float value)
+    {
+        Physics.gravity = new Vector3(0, value, 0);
+        GravityValue.text = value.ToString();
+    }
 
 }
