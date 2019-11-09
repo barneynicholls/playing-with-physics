@@ -85,7 +85,7 @@ public class SpawnObjects : MonoBehaviour
                     }
                     else
                     {
-                        obj = Instantiate(Resources.Load("Sphere"), pos, Quaternion.identity) as GameObject;
+                        obj = Instantiate(Resources.Load("Cube"), pos, Quaternion.identity) as GameObject;
                         created.Add(obj);
                     }
 
